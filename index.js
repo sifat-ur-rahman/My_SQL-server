@@ -54,6 +54,20 @@ app.get('/employees/:id', (req, res) => {
       res.json(result);
     });
   });
+
+
+//   Delete Employee
+
+app.delete('/employees/:id', (req, res) => {
+    const employeeId = req.params.id;
+  
+    db.query('DELETE FROM employees WHERE id = ?', employeeId, (err, result) => {
+      if (err) throw err;
+      console.log('Employee deleted');
+      res.send('Employee deleted');
+    });
+  });
+  
   
   
 app.listen(port, () => {
