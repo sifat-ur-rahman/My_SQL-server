@@ -18,7 +18,7 @@ db.connect((err) => {
   console.log('Connected to MySQL database');
 });
 
-// Create Employee:
+// Create Employee
 app.post('/employees', (req, res) => {
     const { name, email, phone,address } = req.body;
     const employee = { name, email, phone,address };
@@ -30,6 +30,19 @@ app.post('/employees', (req, res) => {
     });
   });
 
+//   List Employees with pagination
+
+app.get('/employees', (req, res) => {
+    const page = req.query.page || 1; // Get the page number from the query parameters
+    const limit = 10; // Number of employees per page
+    const offset = (page - 1) * limit;
+  
+    db.query('SELECT * FROM employees LIMIT ?, ?', [offset, limit], (err, results) => {
+      if (err) throw err;
+      res.json(results);
+    });
+  });
+  
   
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
