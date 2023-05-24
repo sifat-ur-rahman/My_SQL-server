@@ -18,6 +18,19 @@ db.connect((err) => {
   console.log('Connected to MySQL database');
 });
 
+// Create Employee:
+app.post('/employees', (req, res) => {
+    const { name, email, phone,address } = req.body;
+    const employee = { name, email, phone,address };
+  
+    db.query('INSERT INTO employees SET ?', employee, (err, result) => {
+      if (err) throw err;
+      console.log('Employee created');
+      res.send('Employee created');
+    });
+  });
+
+  
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
