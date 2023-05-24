@@ -43,6 +43,18 @@ app.get('/employees', (req, res) => {
     });
   });
   
+
+//   Update Employee
+
+app.get('/employees/:id', (req, res) => {
+    const employeeId = req.params.id;
+  
+    db.query('SELECT * FROM employees WHERE id = ?', employeeId, (err, result) => {
+      if (err) throw err;
+      res.json(result);
+    });
+  });
+  
   
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
